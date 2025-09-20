@@ -1,0 +1,429 @@
+/* Client Browser Styles */
+.client-browser {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Browser Toolbar */
+.browser-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  flex-wrap: wrap;
+}
+
+.navigation-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Address Bar */
+.address-bar {
+  flex: 1;
+  display: flex;
+  min-width: 200px;
+  max-width: 600px;
+}
+
+.address-bar input {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px 0 0 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.address-bar input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.address-bar button {
+  padding: 6px 16px;
+  background: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.address-bar button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.address-bar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Browser Actions */
+.browser-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Browser Content */
+.browser-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Bookmarks Sidebar */
+.bookmarks-sidebar {
+  width: 250px;
+  background: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.bookmarks-sidebar h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  color: #495057;
+}
+
+.bookmarks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+}
+
+.bookmark-link {
+  flex: 1;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bookmark-link:hover {
+  text-decoration: underline;
+}
+
+.bookmark-remove {
+  width: 20px;
+  height: 20px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bookmark-remove:hover {
+  background: #c82333;
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6c757d;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f4f6;
+  border-left: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Page Source */
+.page-source {
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.page-source h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  color: #495057;
+}
+
+.page-source pre {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 16px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.page-source code {
+  font-family: 'Courier New', Monaco, monospace;
+}
+
+/* Rendered Page */
+.rendered-page {
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+  background: white;
+}
+
+/* Style the rendered content */
+.rendered-page h1 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.rendered-page h2 {
+  color: #34495e;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.rendered-page p {
+  line-height: 1.6;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.rendered-page a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.rendered-page a:hover {
+  color: #0056b3;
+}
+
+.rendered-page ul {
+  margin: 16px 0;
+  padding-left: 32px;
+}
+
+.rendered-page li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Browser Status */
+.browser-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.page-title {
+  font-weight: 500;
+}
+
+.current-url {
+  opacity: 0.8;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .browser-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .address-bar {
+    order: 3;
+    width: 100%;
+    max-width: none;
+  }
+
+  .bookmarks-sidebar {
+    width: 200px;
+  }
+
+  .browser-actions {
+    gap: 2px;
+  }
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .nav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookmarks-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .browser-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .current-url {
+    max-width: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .client-browser {
+    background: #1e1e1e;
+  }
+
+  .browser-toolbar,
+  .browser-status {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+
+  .nav-btn,
+  .action-btn {
+    background: #3c3c3c;
+    border-color: #555;
+    color: #fff;
+  }
+
+  .nav-btn:hover:not(:disabled),
+  .action-btn:hover {
+    background: #4a4a4a;
+    border-color: #666;
+  }
+
+  .address-bar input {
+    background: #3c3c3c;
+    border-color: #555;
+    color: #fff;
+  }
+
+  .bookmarks-sidebar {
+    background: #2d2d2d;
+    border-right-color: #404040;
+  }
+
+  .bookmark-item {
+    background: #3c3c3c;
+    border-color: #555;
+  }
+
+  .rendered-page {
+    background: #1e1e1e;
+    color: #fff;
+  }
+
+  .page-source pre {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #fff;
+  }
+}

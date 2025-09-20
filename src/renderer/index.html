@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' data:;">
+    <title>Web Hypertext Client</title>
+    
+    <!-- Reset and base styles -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        
+        #root {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Loading screen */
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .loading-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .loading-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error screen */
+        .error-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f8f9fa;
+            color: #495057;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .error-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #dc3545;
+        }
+        
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #dc3545;
+        }
+        
+        .error-message {
+            font-size: 16px;
+            line-height: 1.5;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .error-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .error-button.primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .error-button.primary:hover {
+            background: #0056b3;
+        }
+        
+        .error-button.secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .error-button.secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- Loading screen shown initially -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-logo">🌐</div>
+            <div class="loading-text">Web Hypertext Client</div>
+            <div class="loading-subtitle">Recreating the collaborative web</div>
+            <div class="loading-spinner"></div>
+        </div>
+        
+        <!-- Error screen shown if app fails to load -->
+        <div class="error-screen" id="errorScreen">
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">Failed to Load Application</div>
+            <div class="error-message">
+                The Web Hypertext Client encountered an error and could not start properly. 
+                Please check your internet connection and try again.
+            </div>
+            <div class="error-actions">
+                <button class="error-button primary" onclick="location.reload()">
+                    Reload Application
+                </button>
+                <button class="error-button secondary" onclick="showDetails()">
+                    Show Details
+                </button>
+            </div>
+            <div id="errorDetails" style="display: none; margin-top: 20px; padding: 20px; background: #fff; border-radius: 6px; text-align: left; max-width: 600px;">
+                <h4>Error Details:</h4>
+                <pre id="errorLog" style="font-size: 12px; overflow: auto; max-height: 200px;"></pre>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Error handling
+        let errorDetails = '';
+        
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            errorDetails += `${event.error.message}\n${event.error.stack}\n\n`;
+            showErrorScreen();
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            errorDetails += `Promise rejection: ${event.reason}\n\n`;
+            showErrorScreen();
+        });
+        
+        function showErrorScreen() {
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('errorScreen').style.display = 'flex';
+        }
+        
+        function showDetails() {
+            const detailsDiv = document.getElementById('errorDetails');
+            const errorLog = document.getElementById('errorLog');
+            errorLog.textContent = errorDetails || 'No error details available.';
+            detailsDiv.style.display = detailsDiv.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // Hide loading screen once React app mounts
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (document.querySelector('.app')) {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }
+            }, 100);
+        });
+        
+        // Expose development helpers in dev mode
+        if (process?.env?.NODE_ENV === 'development') {
+            window.showErrorScreen = showErrorScreen;
+            window.showLoadingScreen = () => {
+                document.getElementById('errorScreen').style.display = 'none';
+                document.getElementById('loadingScreen').style.display = 'flex';
+            };
+        }
+    </script>
+    
+    <!-- React app will be injected here by webpack -->
+</body>
+</html>
